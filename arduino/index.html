@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>Page d'affichage</title>
+        <style>
+            h1
+            {
+                color: blue;
+                font-style: italic;
+                text-align: center;
+            }
+            #mesinfos{
+                border : 2px solid blue;
+                background-color : orange;
+                border-radius : 8px;
+                padding: 15px;
+                width: 400px;
+            }
+        </style>
+    </head>
+    <body>
+        
+        <div id="mesinfos"></div>
+        
+        <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+        <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+        <script src="/socket.io/socket.io.js"></script>
+        <script>
+            var socket = io.connect('http://localhost:3000');
+            var mydiv = document.getElementById('mesinfos');
+            var par=document.getElementById('bob');
+
+            socket.on('mesdonnees', function(donnees) {
+                var n=parseInt(donnees,10);
+             
+               
+
+           if ((n >= 300)&&(parseInt(donnees,10)!=0)) {
+                 mydiv.style.backgroundColor= 'green' ;
+                 $('#mesinfos').text('Sensibilité = '+donnees +   '   Stable');
+             }
+            else  if ((parseInt(donnees,10) <= 300) && (parseInt(donnees,10) !=0)  ) {
+                 mydiv.style.backgroundColor='red';
+                 $('#mesinfos').text('Sensibilité = '+donnees+'   Flamme détectée');
+                  } 
+                    //    $('#mesinfos').text('Sensibilité = '+donnees);
+            
+                
+            })
+             
+        </script>
+    </body>
+</html>
